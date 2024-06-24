@@ -1,0 +1,479 @@
+<div class="page-wrapper">
+  <!-- END SIDEBAR-->
+  <div class="content-wrapper">
+    <!-- START PAGE CONTENT-->
+    <div class="page-heading">
+      <h1 class="page-title" style="color: #fff">Fund Account</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/dashboard"><i class="la la-home font-20"></i></a>
+        </li>
+        <!-- <li class="breadcrumb-item">DataTables</li> -->
+      </ol>
+    </div>
+
+    <div class="my-4"><%- include("./partials/messages") %></div>
+
+    <div class="page-content fade-in-up">
+      <div
+        class="ibox"
+        style="background: #1d1d1d !important; padding: 0px !important"
+      >
+        <div class="ibox-body clearfix" style="padding: 0px !important">
+          <div class="_seg_pay">
+            <h4 class="_phh">Bitcoin</h4>
+            <center>
+              <img class="_seg_pay_img_" src="/images/bitcoin.png" />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_btc"
+              style="border-radius: 3px"
+            >
+              Deposit
+            </div>
+          </div>
+
+          <div class="_seg_pay">
+            <h4 class="_phh">Ethereum</h4>
+            <center>
+              <img class="_seg_pay_img_" src="/images/ethereum.png" />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_eth"
+            >
+              Deposit
+            </div>
+          </div>
+
+          <div class="_seg_pay">
+            <h4 class="_phh">USDT (ERC20)</h4>
+            <center>
+              <img class="_seg_pay_img_" src="/images/usdt.jpg" />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_usdt"
+            >
+              Deposit
+            </div>
+          </div>
+
+          <div class="_seg_pay">
+            <h4 class="_phh">BCH</h4>
+            <center>
+              <img
+                class="_seg_pay_img_"
+                src="/images/bitcoin-cash-logo-horizontal.webp"
+              />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_bch"
+            >
+              Deposit
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content fade-in-up">
+      <div class="ibox">
+        <div class="ibox-head">
+          <div class="ibox-title">My Deposit History</div>
+        </div>
+        <div class="ibox-body table-responsive">
+          <table
+            class="table table-striped table-bordered table-hover"
+            id="example-table"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead>
+              <tr>
+                <th>Reference</th>
+                <th>Payment Method</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% deposits.reverse().map(dep => {%>
+              <tr>
+                <td><%= dep.reference %></td>
+                <td><%= dep.method %></td>
+                <td><%= comma(dep.amount) %></td>
+                <td><%= new Date(dep.date).toDateString() %></td>
+
+                <% if (dep.status == 'pending') {%>
+                <td class="bg-warning"><%= dep.status %></td>
+                <%}%> <% if (dep.status == 'rejected'){ %>
+                <td class="bg-danger text-white"><%= dep.status %></td>
+                <%}%> <% if (dep.status == 'approved'){ %>
+                <td class="bg-success text-white"><%= dep.status %></td>
+                <%}%>
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pay_btc">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">BITCOIN DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>All Bitcoin payments should be sent to the wallet address below:</p>
+        <center>
+          <img
+            src="https://chart.googleapis.com/chart?chs=200x200&amp;cht=qr&amp;chl=bitcoin:<%= site.bitcoinAddress %>"
+          />
+        </center>
+
+        <div class="input-group mb-20">
+          <input
+            id="btcInput"
+            type="text"
+            class="form-control"
+            readonly="readonly"
+            value="<%= site.bitcoinAddress %>"
+          />
+          <span style="display: inline" class="input-group-btn">
+            <button
+              class="btn btn-success btc-button"
+              type="button"
+              id="btcButton"
+              data-clipboard-target="btcInput"
+            >
+              Copy
+            </button>
+          </span>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="Bitcoin" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Paid</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+            <input type="hidden" name="method" value="Bitcoin" />
+          </div>
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+        <span
+          >For more information contact us immediately through our official
+          email address support@sprintfxoptions.net. Thanks for choosing
+          SprintFxOptions</span
+        >
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pay_eth">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">ETHEREUM DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>All Ethereum payments should be sent to the wallet address below:</p>
+
+        <center>
+          <img
+            src="https://chart.googleapis.com/chart?chs=200x200&amp;cht=qr&amp;chl=<%= site.ethereumAddress %>"
+          />
+        </center>
+
+        <div class="input-group mb-20">
+          <input
+            id="ethInput"
+            type="text"
+            class="form-control"
+            readonly="readonly"
+            value="<%= site.ethereumAddress %>"
+          />
+          <span style="display: inline" class="input-group-btn">
+            <button
+              class="btn btn-success eth-button"
+              type="button"
+              id="ethButton"
+              data-clipboard-target="ethInput"
+            >
+              Copy
+            </button>
+          </span>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="Ethereum" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Paid</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+          </div>
+
+          <input type="hidden" name="method" value="Ethereum" />
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+        <span
+          >For more information contact us immediately through our official
+          email address support@sprintfxoptions.net. Thanks for choosing
+          SprintFxOptions</span
+        >
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pay_usdt">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">USDT (ERC20) DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>
+          All USDT(ERC20) payments should be sent to the wallet address below:
+        </p>
+
+        <center>
+          <img
+            src="https://chart.googleapis.com/chart?chs=200x200&amp;cht=qr&amp;chl=<%= site.usdtAddress %>"
+          />
+        </center>
+
+        <div class="input-group mb-20">
+          <input
+            id="usdtInput"
+            type="text"
+            class="form-control"
+            readonly="readonly"
+            value="<%= site.usdtAddress %>"
+          />
+          <span style="display: inline" class="input-group-btn">
+            <button
+              class="btn btn-success usdt-button"
+              type="button"
+              id="usdtButton"
+              data-clipboard-target="usdtInput"
+            >
+              Copy
+            </button>
+          </span>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="USDT (ERC20)" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Paid</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+          </div>
+
+          <input type="hidden" name="method" value="USDT" />
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+        <span
+          >For more information contact us immediately through our official
+          email address support@sprintfxoptions.net. Thanks for choosing
+          SprintFxOptions</span
+        >
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pay_bch">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">BCH DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>All BCH payments should be sent to the wallet address below:</p>
+
+        <center>
+          <img
+            src="https://chart.googleapis.com/chart?chs=200x200&amp;cht=qr&amp;chl=<%= site.bchAddress %>"
+          />
+        </center>
+
+        <div class="input-group mb-20">
+          <input
+            id="bchInput"
+            type="text"
+            class="form-control"
+            readonly="readonly"
+            value="<%= site.bchAddress %>"
+          />
+          <span style="display: inline" class="input-group-btn">
+            <button
+              class="btn btn-success bch-button"
+              type="button"
+              id="bchButton"
+              data-clipboard-target="bchInput"
+            >
+              Copy
+            </button>
+          </span>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="BCH" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Paid</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+          </div>
+
+          <input type="hidden" name="method" value="USDT" />
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const bchButton = document.getElementById("bchButton");
+  const btcButton = document.getElementById("btcButton");
+  const ethButton = document.getElementById("ethButton");
+  const usdtButton = document.getElementById("usdtButton");
+  function copyFunc(evt) {
+    console.log("clicked");
+    evt.target.innerHTML = "Copied";
+    evt.target.classList.remove("btn-success");
+    evt.target.classList.add("btn-warning");
+
+    const textId = evt.target.getAttribute("data-clipboard-target");
+
+    // Get the text area
+    const copyText = document.getElementById(textId);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand("copy");
+  }
+
+  bchButton.addEventListener("click", copyFunc);
+  btcButton.addEventListener("click", copyFunc);
+  ethButton.addEventListener("click", copyFunc);
+  usdtButton.addEventListener("click", copyFunc);
+</script>

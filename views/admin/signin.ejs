@@ -1,0 +1,27 @@
+<div class="container" style="background-color: #000">
+  <h1 class="text-white text-center mt-3" style="margin-top: 4em">Sigin</h1>
+  <form
+    method="post"
+    accept="."
+    class="form mb-5"
+    style="max-width: 500px; margin: 1em auto"
+  >
+    <%-include("./partials/messages")%>
+    <div class="mb-3" style="display: block; margin-bottom: 1em">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" id="email" name="email" />
+    </div>
+    <div class="mb-3" style="display: block; margin-bottom: 2em">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        id="password"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%">
+      Login
+    </button>
+  </form>
+</div>

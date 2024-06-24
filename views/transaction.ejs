@@ -1,0 +1,63 @@
+
+      <div class="content-wrapper">
+        <!-- START PAGE CONTENT-->
+        <div class="page-heading">
+          <h1 class="page-title" style="color: #fff">My Transactions</h1>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/dashboard"><i class="la la-home font-20"></i></a>
+            </li>
+            <span style="max-width: 600px; color: #fff"
+              >My transactions contains all your deposit history and withdraw
+              request history.<br />You can check if your deposit has being
+              approved here. You can view if your withdraw has being approved
+              here.</span
+            >
+          </ol>
+        </div>
+        <div class="page-content fade-in-up">
+          <div class="ibox">
+            <div class="ibox-head">
+              <div class="ibox-title">Transactions History</div>
+            </div>
+            <div class="ibox-body table-responsive">
+              <table
+                class="table table-striped table-bordered table-hover"
+                id="example-table"
+                cellspacing="0"
+                width="100%"
+              >
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% transactions.reverse().map(dep => {%>
+                  <tr>
+                    <td><%= dep.reference %></td>
+                    <td><%= dep.method %></td>
+                    <td><%= comma(dep.amount) %></td>
+                    <td><%= new Date(dep.date).toDateString() %></td>
+                    <% if (dep.status == 'pending') {%>
+                    <td class="bg-warning"><%= dep.status %></td>
+                    <%}%> <% if (dep.status == 'rejected'){ %>
+                    <td class="bg-danger text-white"><%= dep.status %></td>
+                    <%}%> <% if (dep.status == 'approved'){ %>
+                    <td class="bg-success text-white"><%= dep.status %></td>
+                    <%}%>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    

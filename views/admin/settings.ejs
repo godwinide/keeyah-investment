@@ -1,0 +1,90 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <h1>Settings</h1>
+    <form
+      action="/admin/settings"
+      method="post"
+      class="form mt-4 mx-auto"
+      style="max-width: 500px"
+    >
+      <h3 class="text-white my-5">Change Password</h3>
+      <%-include("./partials/messages")%>
+      <div class="mb-3">
+        <input
+          type="password"
+          placeholder="New Password"
+          name="password"
+          class="form-control text-white"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <input
+          type="password"
+          placeholder="Retype Password"
+          name="password2"
+          class="form-control text-white"
+          required
+        />
+      </div>
+    </form>
+
+    <form
+      action="/admin/settings/addresses"
+      method="post"
+      class="form mt-4 mx-auto"
+      style="max-width: 500px"
+    >
+      <h3 class="text-white my-5">Site Settings</h3>
+      <%-include("./partials/messages")%>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Bitcoin Address"
+          name="bitcoinAddress"
+          value="<%= site.bitcoinAddress %>"
+          class="form-control text-white"
+          required
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="BCH Addrress"
+          name="bchAddress"
+          value="<%= site.bchAddress %>"
+          class="form-control text-white"
+          required
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Ethereum Address"
+          name="ethereumAddress"
+          class="form-control text-white"
+          value="<%= site.ethereumAddress %>"
+          required
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="USDT Address"
+          name="usdtAddress"
+          class="form-control text-white"
+          value="<%= site.usdtAddress %>"
+          required
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Whatsapp number"
+          name="whatsappNumber"
+          class="form-control text-white"
+          value="<%= site.whatsappNumber %>"
+          required
+        />
+      </div>
+      <button class="btn btn-success">Update</button>
+    </form>
+  </div>
+</div>

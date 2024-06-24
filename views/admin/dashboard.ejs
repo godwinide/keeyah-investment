@@ -1,0 +1,228 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="row"><%-include("./partials/messages")%></div>
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0"><%= users.length %></h3>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success">
+                  <span class="mdi mdi-account-group icon-item"></span>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Clients</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0"><%= pendingDeposits.length %></h3>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success">
+                  <span class="mdi mdi-cash icon-item"></span>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Pending Deposits</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="d-flex align-items-center align-self-start">
+                  <h3 class="mb-0"><%= pendingWithdrawals.length %></h3>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="icon icon-box-success">
+                  <span class="mdi mdi-cash icon-item"></span>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-muted font-weight-normal">Pending Withdrawals</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-white">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Deposit Requests</h4>
+            <div class="table-responsive">
+              <table class="table" id="table1">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% pendingDeposits.slice(0,11).forEach(c => {%>
+                  <tr>
+                    <td class="text-white"><%= c.reference %></td>
+                    <td class="text-white"><%= c.method %></td>
+                    <td class="text-white"><%= comma(c.amount) %></td>
+                    <td class="text-white">
+                      <%= new Date(c.date).toLocaleDateString() %>
+                    </td>
+                    <td class="text-white">
+                      <div class="row">
+                        <a
+                          href="/admin/reject-deposit/<%=c.reference%>"
+                          class="btn btn-danger mr-4"
+                          >Reject</a
+                        >
+                      </div>
+                    </td>
+                    <td class="text-white">
+                      <div class="row">
+                        <a
+                          href="/admin/approve-deposit/<%=c.reference%>"
+                          class="btn btn-success"
+                          >Approve</a
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-white">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Withdrawal Requests</h4>
+            <div class="table-responsive">
+              <table class="table" id="table2">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% pendingWithdrawals.slice(0,11).forEach(c => {%>
+                  <tr>
+                    <td class="text-white"><%= c.reference %></td>
+                    <td class="text-white"><%= c.method %></td>
+                    <td class="text-white"><%= comma(c.amount) %></td>
+                    <td class="text-white">
+                      <%= new Date(c.date).toLocaleDateString() %>
+                    </td>
+                    <td class="text-white">
+                      <div class="row">
+                        <a
+                          href="/admin/reject-withdrawal/<%=c.reference%>"
+                          class="btn btn-danger mr-4"
+                          >Reject</a
+                        >
+                      </div>
+                    </td>
+                    <td class="text-white">
+                      <div class="row">
+                        <a
+                          href="/admin/approve-withdrawal/<%=c.reference%>"
+                          class="btn btn-success"
+                          >Approve</a
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-white">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Clients</h4>
+            <div class="table-responsive">
+              <table class="table" id="table3">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Balance</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% users.forEach(c => {%>
+                  <tr>
+                    <td class="text-white">
+                      <%= c.firstname + " " + c.lastname %>
+                    </td>
+                    <td class="text-white"><%= c.email %></td>
+                    <td class="text-white"><%= comma(c.balance) %></td>
+                    <td class="text-white">
+                      <div class="row">
+                        <a
+                          href="/admin/edit-user/<%=c.id%>"
+                          class="btn btn-primary"
+                          >Manage</a
+                        >
+                      </div>
+                    </td>
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"
+></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+  new DataTable("#table1");
+  new DataTable("#table2");
+  new DataTable("#table3");
+</script>

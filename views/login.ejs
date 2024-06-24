@@ -1,0 +1,74 @@
+<div class="wrapper" style="background-image: url('images/bg2.jpg')">
+  <div class="container-fluid user-auth" style="margin: 50px 0 !important">
+    <!-- Logo Ends -->
+    <div class="form-container">
+      <div>
+        <!-- Section Title Starts -->
+        <div class="row text-center">
+          <h2 class="title-head">Account <span>login</span></h2>
+        </div>
+        <!-- Section Title Ends -->
+        <div clas="row justify-content-center">
+          <div class="col-md-4 col-md-offset-4">
+            <!-- Form Starts -->
+            <form
+              method="post"
+              action="/login"
+              role="form"
+              data-toggle="validator"
+            >
+              <%- include("./partials/messages") %>
+              <!-- Input Field Starts -->
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  name="email"
+                  placeholder="EMAIL ADDRESS"
+                  type="email"
+                  required
+                />
+                <div class="help-block with-errors"></div>
+              </div>
+              <!-- Input Field Ends -->
+              <!-- Input Field Starts -->
+              <div class="form-group">
+                <input
+                  class="form-control"
+                  name="password"
+                  placeholder="PASSWORD"
+                  type="password"
+                  required
+                />
+                <div class="help-block with-errors"></div>
+              </div>
+              <!-- Input Field Ends -->
+              <!-- Submit Form Button Starts -->
+              <div class="form-group">
+                <button
+                  class="btn btn-primary btn-block"
+                  name="login"
+                  type="submit"
+                >
+                  login
+                </button>
+                <p class="text-center">
+                  Don't have an account yet?
+                  <a href="/register">Register Now</a> <br />
+                </p>
+
+                <p class="text-center">
+                  <a href="/forgot-password">Forgot Password?</a>
+                </p>
+              </div>
+
+              <!-- Submit Form Button Ends -->
+            </form>
+          </div>
+        </div>
+        <!-- Form Ends -->
+      </div>
+    </div>
+
+    <!-- Copyright Text Ends -->
+  </div>
+</div>
