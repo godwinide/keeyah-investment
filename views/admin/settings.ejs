@@ -15,7 +15,7 @@
           placeholder="New Password"
           name="password"
           class="form-control text-white"
-          required
+          required="false"
         />
       </div>
 
@@ -25,7 +25,7 @@
           placeholder="Retype Password"
           name="password2"
           class="form-control text-white"
-          required
+          required="false"
         />
       </div>
     </form>
@@ -45,7 +45,7 @@
           name="bitcoinAddress"
           value="<%= site.bitcoinAddress %>"
           class="form-control text-white"
-          required
+          required="false"
         />
         <br />
         <input
@@ -54,7 +54,7 @@
           name="bchAddress"
           value="<%= site.bchAddress %>"
           class="form-control text-white"
-          required
+          required="false"
         />
         <br />
         <input
@@ -63,7 +63,7 @@
           name="ethereumAddress"
           class="form-control text-white"
           value="<%= site.ethereumAddress %>"
-          required
+          required="false"
         />
         <br />
         <input
@@ -72,7 +72,7 @@
           name="usdtAddress"
           class="form-control text-white"
           value="<%= site.usdtAddress %>"
-          required
+          required="false"
         />
         <br />
         <input
@@ -81,7 +81,52 @@
           name="whatsappNumber"
           class="form-control text-white"
           value="<%= site.whatsappNumber %>"
-          required
+          required="false"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="UPI ID"
+          name="upiId"
+          class="form-control text-white"
+          value="<%= site.upiId %>"
+          required="false"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Bank Name"
+          name="bankName"
+          class="form-control text-white"
+          value="<%= site.bankName %>"
+          required="false"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Bank Account Number"
+          name="bankAccountNumber"
+          class="form-control text-white"
+          value="<%= site.bankAccountNumber %>"
+          required="false"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Bank Account Name"
+          name="bankAccountName"
+          class="form-control text-white"
+          value="<%= site.bankAccountName %>"
+          required="false"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Bank IBAN"
+          name="bankIban"
+          class="form-control text-white"
+          value="<%= site.bankIban %>"
+          required="false"
         />
       </div>
       <button class="btn btn-success">Update</button>

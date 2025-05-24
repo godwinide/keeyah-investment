@@ -79,6 +79,40 @@
               Deposit
             </div>
           </div>
+
+          <div class="_seg_pay">
+            <h4 class="_phh">UPI</h4>
+            <center>
+              <img
+                class="_seg_pay_img_"
+                src="/images/upi-logo.svg"
+              />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_upi"
+            >
+              Deposit
+            </div>
+          </div>
+
+          <div class="_seg_pay">
+            <h4 class="_phh">Bank Transfer</h4>
+            <center>
+              <img
+                class="_seg_pay_img_"
+                src="/images/bank-transfer.svg"
+              />
+            </center>
+            <div
+              class="_gwAA _nnp_btn"
+              data-toggle="modal"
+              data-target="#pay_bank"
+            >
+              Deposit
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -452,11 +486,194 @@
   </div>
 </div>
 
+<!-- UPI Modal -->
+<div class="modal fade" id="pay_upi">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">UPI DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>Please make your UPI payment to the ID below:</p>
+
+        <center>
+          <img
+            src="https://chart.googleapis.com/chart?chs=200x200&amp;cht=qr&amp;chl=<%= site.upiId %>"
+          />
+        </center>
+
+        <div class="input-group mb-20">
+          <input
+            id="upiInput"
+            type="text"
+            class="form-control"
+            readonly="readonly"
+            value="<%= site.upiId %>"
+          />
+          <span style="display: inline" class="input-group-btn">
+            <button
+              class="btn btn-success upi-button"
+              type="button"
+              id="upiButton"
+              data-clipboard-target="upiInput"
+            >
+              Copy
+            </button>
+          </span>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="UPI" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Paid</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="transaction_id">UPI Transaction ID</label>
+            <input
+              type="text"
+              class="form-control"
+              name="transaction_id"
+              placeholder="Enter your UPI transaction ID"
+              required
+            />
+          </div>
+
+          <input type="hidden" name="method" value="UPI" />
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bank Transfer Modal -->
+<div class="modal fade" id="pay_bank">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">BANK TRANSFER DEPOSIT</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>Please make your bank transfer to the account details below:</p>
+
+        <div class="card bg-light p-3 mb-3">
+          <div class="form-group">
+            <label><strong>Bank Name:</strong></label>
+            <p><%= site.bankName %></p>
+          </div>
+          <div class="form-group">
+            <label><strong>Account Number:</strong></label>
+            <p><%= site.bankAccountNumber %></p>
+          </div>
+          <div class="form-group">
+            <label><strong>Account Name:</strong></label>
+            <p><%= site.bankAccountName %></p>
+          </div>
+          <div class="form-group">
+            <label><strong>IBAN:</strong></label>
+            <p><%= site.bankIban %></p>
+          </div>
+        </div>
+
+        <form method="post" action="/deposit">
+          <input type="hidden" name="user_id" value="174" />
+          <input type="hidden" name="payment_gateway" value="Bank Transfer" />
+
+          <div class="form-group mt-3">
+            <label for="amount">Amount Transferred</label>
+            <input
+              type="number"
+              class="form-control"
+              name="amount"
+              placeholder="0.00"
+              required
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="sender_name">Sender's Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="sender_name"
+              placeholder="Enter the name of the account holder"
+              required
+            />
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="transaction_id">Reference/Transaction ID</label>
+            <input
+              type="text"
+              class="form-control"
+              name="transaction_id"
+              placeholder="Enter the transaction reference"
+              required
+            />
+          </div>
+
+          <input type="hidden" name="method" value="Bank Transfer" />
+
+          <button type="submit" name="deposit" class="btn btn-info btn-block">
+            <i class="fa fa-money"></i> Confirm Deposit
+          </button>
+        </form>
+
+        <br />
+        <p>
+          Once we confirm your payment, your account will be funded instantly.
+        </p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   const bchButton = document.getElementById("bchButton");
   const btcButton = document.getElementById("btcButton");
   const ethButton = document.getElementById("ethButton");
   const usdtButton = document.getElementById("usdtButton");
+  const upiButton = document.getElementById("upiButton");
   function copyFunc(evt) {
     console.log("clicked");
     evt.target.innerHTML = "Copied";
@@ -476,4 +693,7 @@
   btcButton.addEventListener("click", copyFunc);
   ethButton.addEventListener("click", copyFunc);
   usdtButton.addEventListener("click", copyFunc);
+  if (upiButton) {
+    upiButton.addEventListener("click", copyFunc);
+  }
 </script>

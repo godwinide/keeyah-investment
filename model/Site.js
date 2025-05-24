@@ -17,6 +17,26 @@ const SiteSchema = new Schema({
         type: String,
         required: false
     },
+    upiId: {
+        type: String,
+        required: false
+    },
+    bankName: {
+        type: String,
+        required: false
+    },
+    bankAccountNumber: {
+        type: String,
+        required: false
+    },
+    bankAccountName: {
+        type: String,
+        required: false
+    },
+    bankIban: {
+        type: String,
+        required: false
+    },
     whatsappNumber: {
         type: String,
         required: false

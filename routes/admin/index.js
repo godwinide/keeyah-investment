@@ -35,7 +35,12 @@ router.post("/settings/addresses", ensureAdmin, async (req, res) => {
             bchAddress,
             ethereumAddress,
             usdtAddress,
-            whatsappNumber
+            whatsappNumber,
+            upiId,
+            bankName,
+            bankAccountNumber,
+            bankAccountName,
+            bankIban
         } = req.body;
         const siteExists = await Site.findOne({});
         if (siteExists) {
@@ -45,13 +50,23 @@ router.post("/settings/addresses", ensureAdmin, async (req, res) => {
                 ethereumAddress: ethereumAddress ? ethereumAddress : siteExists.ethereumAddress,
                 usdtAddress: usdtAddress ? usdtAddress : siteExists.usdtAddress,
                 whatsappNumber: whatsappNumber ? whatsappNumber : siteExists.whatsappNumber,
+                upiId: upiId ? upiId : siteExists.upiId,
+                bankName: bankName ? bankName : siteExists.bankName,
+                bankAccountNumber: bankAccountNumber ? bankAccountNumber : siteExists.bankAccountNumber,
+                bankAccountName: bankAccountName ? bankAccountName : siteExists.bankAccountName,
+                bankIban: bankIban ? bankIban : siteExists.bankIban
             })
         } else {
             const newSite = new Site({
                 bitcoinAddress,
                 ethereumAddress,
                 usdtAddress,
-                whatsappNumber
+                whatsappNumber,
+                upiId,
+                bankName,
+                bankAccountNumber,
+                bankAccountName,
+                bankIban
             });
             await newSite.save();
         }
